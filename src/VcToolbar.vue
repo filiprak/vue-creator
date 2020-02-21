@@ -8,7 +8,9 @@
       </v-list-item-content>
     </v-list-item>
 
-    <v-divider></v-divider>
+    <v-divider/>
+
+    ...
 
 
   </div>
@@ -16,7 +18,7 @@
 
 <script>
     export default {
-        name: 'Toolbar'
+        name: 'VcToolbar'
     }
 </script>
 

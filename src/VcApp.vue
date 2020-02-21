@@ -5,7 +5,7 @@
       right
       permanent
     >
-      <Toolbar/>
+      <vc-toolbar/>
     </v-navigation-drawer>
 
     <v-app-bar
@@ -21,17 +21,17 @@
         class="fill-height"
         fluid
       >
-        
+        <router-view/>
       </v-container>
     </v-content>
   </v-app>
 </template>
 
 <script>
-    import Toolbar from "./Toolbar";
+    import VcToolbar from "./VcToolbar";
     export default {
-        name: 'App',
-        components: {Toolbar},
+        name: 'VcApp',
+        components: {VcToolbar},
         props: {
             source: String,
         },
