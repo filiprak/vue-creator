@@ -4,6 +4,7 @@
       app
       right
       permanent
+      fixed
     >
       <vc-toolbar/>
     </v-navigation-drawer>
@@ -40,3 +41,9 @@
         }),
     }
 </script>
+
+<style>
+  html {
+    overflow-y: auto !important;
+  }
+</style>
