@@ -71,7 +71,7 @@
                     ${this.getScriptTag('https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.js')}
                     ${this.getScriptTag('https://unpkg.com/buefy/dist/buefy.min.js')}
 
-                    ${this.getScriptTag('iframe.js')}
+                    ${this.getScriptTag('iframe.umd.js')}
                   </head>
                   <body>
                     <div id="root"></div>

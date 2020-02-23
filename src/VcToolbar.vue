@@ -21,7 +21,7 @@
 
     <v-divider/>
 
-    <v-list class=" vc-toolbar__content">
+    <v-list class="vc-toolbar__content">
       <v-list-item dense
                    :inactive="false"
                    v-for="component in components"
@@ -32,7 +32,7 @@
           <v-list-item-title class="body-2">
             {{component.name}}
           </v-list-item-title>
-          <v-list-item-subtitle>
+          <v-list-item-subtitle class="caption">
             {{Object.keys(component.props).join(', ')}}
           </v-list-item-subtitle>
         </v-list-item-content>

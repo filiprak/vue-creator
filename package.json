@@ -5,6 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "build:iframe": "vue-cli-service build --target lib --name iframe ./src/iframe/index.js && cp -f ./dist/iframe.umd.js ./public",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
