@@ -1,23 +1,32 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import {ADD_COMPONENT, SET_VUE_COMPONENTS_LIST} from './mutations'
+import {SET_DRAGGING, SET_HIGHLIGHT_COMPONENT, SET_VUE_COMPONENTS_LIST} from './mutations'
 
 Vue.use(Vuex);
 
-
-export default new Vuex.Store({
-    state: {
-        vue_components: [],
-
-        added_components: []
+export const config = {
+  state: {
+    mouse: {
+      dragging: false,
+      data: null
     },
-    mutations: {
-        [SET_VUE_COMPONENTS_LIST](state, data) {
-            state.vue_components = data || []
-        },
-        [ADD_COMPONENT](state, name) {
-            state.added_components.push(name)
-        }
+    highlight_component: null,
+
+    vue_components: []
+  },
+  mutations: {
+    [SET_VUE_COMPONENTS_LIST](state, data) {
+      state.vue_components = data || []
     },
-})
+    [SET_DRAGGING](state, data) {
+      state.mouse.dragging = !!data
+      state.mouse.data = data ? data : null
+    },
+    [SET_HIGHLIGHT_COMPONENT](state, data) {
+      state.highlight_component = data && data !== 0 ? data : null
+    },
+  },
+}
+
+export default new Vuex.Store(config)

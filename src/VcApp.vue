@@ -29,17 +29,18 @@
 </template>
 
 <script>
-    import VcToolbar from "./VcToolbar";
-    export default {
-        name: 'VcApp',
-        components: {VcToolbar},
-        props: {
-            source: String,
-        },
-        data: () => ({
-            drawer: null,
-        }),
-    }
+  import VcToolbar from "./VcToolbar";
+
+  export default {
+    name: 'VcApp',
+    components: {VcToolbar},
+    props: {
+      source: String,
+    },
+    data: () => ({
+      drawer: null,
+    }),
+  }
 </script>
 
 <style>

@@ -23,10 +23,11 @@
 
     <v-list class="vc-toolbar__content">
       <v-list-item dense
+                   v-draggable="component"
                    :inactive="false"
                    v-for="component in components"
                    :key="component.name"
-                   @click="addComponent(component)"
+                   @click.stop
       >
         <v-list-item-content>
           <v-list-item-title class="body-2">
@@ -43,28 +44,22 @@
 </template>
 
 <script>
-    import {ADD_COMPONENT} from "./store/mutations";
-
-    export default {
-        name: 'VcToolbar',
-        computed: {
-            components() {
-                return this.$store.state.vue_components.filter(({name}) => {
-                    return name.toLowerCase().indexOf((this.search || '').toLowerCase()) > -1
-                })
-            }
-        },
-        data() {
-            return {
-                search: ''
-            }
-        },
-        methods: {
-            addComponent(component) {
-                this.$store.commit(ADD_COMPONENT, component.name)
-            }
-        }
-    }
+  export default {
+    name: 'VcToolbar',
+    computed: {
+      components() {
+        return this.$store.state.vue_components.filter(({name}) => {
+          return name.toLowerCase().indexOf((this.search || '').toLowerCase()) > -1
+        })
+      }
+    },
+    data() {
+      return {
+        search: ''
+      }
+    },
+    methods: {}
+  }
 </script>
 
 <style scoped>

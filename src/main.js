@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VcApp from './VcApp.vue'
+import './directives/draggable'
 import vuetify from './plugins/vuetify';
 import router from './router'
 import store from './store/store'

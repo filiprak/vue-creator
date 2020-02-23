@@ -5,14 +5,13 @@
 </template>
 
 <script>
-    import VcPagePreview from "./VcPagePreview";
-    export default {
-        name: "VcHomePage",
-        components: {VcPagePreview},
-        computed: {
+  import VcPagePreview from "./VcPagePreview";
 
-        }
-    }
+  export default {
+    name: "VcHomePage",
+    components: {VcPagePreview},
+    computed: {}
+  }
 </script>
 
 <style scoped>
