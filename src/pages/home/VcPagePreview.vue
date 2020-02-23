@@ -20,7 +20,7 @@
         },
         computed: {
             document: function () {
-                return this.getBaseHtml(this.getBaseScript());
+                return this.getBaseHtml();
             },
             added_components: function () {
                 return this.$store.state.added_components;
@@ -37,7 +37,7 @@
             }
         },
         methods: {
-            getBaseHtml(script) {
+            getBaseHtml() {
                 /*return `
                   <!DOCTYPE html>
                   <html lang="en">
@@ -71,11 +71,10 @@
                     ${this.getScriptTag('https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.js')}
                     ${this.getScriptTag('https://unpkg.com/buefy/dist/buefy.min.js')}
 
-                    ${this.getScriptTag('iframe.umd.js')}
                   </head>
                   <body>
                     <div id="root"></div>
-                    ${this.getScriptTag(null, script)}
+                    ${this.getScriptTag('libs/iframe.umd.js')}
                   </body>
                   </html>
                 `
@@ -103,21 +102,6 @@
             },
             getScriptTag(url, content) {
                 return ['<script', (url ? ' src="' + url + '" ' : ''), '>', content, '</', 'script>'].join('')
-            },
-            getBaseScript() {
-                return `
-                  const Root = {
-                    name: 'Root',
-                    template: '${this.root_component.template}'
-                  }
-
-                  const app = new Vue({
-                    el: '#root',
-                    render: function (h) {
-                      return h(Root)
-                    }
-                  })
-                `;
             },
             addComponent(name) {
                 this.root_component.template_tree.div.push({[name]: {$:{}, _: 'Test'}})

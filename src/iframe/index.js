@@ -1,13 +1,10 @@
-console.log('test lib')
+import Vue from 'vue'
 
-const Root = {
-    name: 'Root',
-    template: '${this.root_component.template}'
-}
+console.log(Vue.version)
 
-const app = new Vue({
+window.app = new Vue({
     el: '#root',
     render: function (h) {
-        return h(Root)
+        return h('div', {}, 'Root')
     }
 })

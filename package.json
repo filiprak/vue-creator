@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
+    "serve:iframe": "vue-cli-service build --watch --dest public/libs --target lib --name iframe ./src/iframe/index.js",
     "build": "vue-cli-service build",
-    "build:iframe": "vue-cli-service build --target lib --name iframe ./src/iframe/index.js && cp -f ./dist/iframe.umd.js ./public",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
