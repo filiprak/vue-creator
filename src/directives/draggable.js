@@ -24,6 +24,7 @@ Vue.directive('draggable', {
   unbind(el, binding, vnode) {
     el.removeEventListener('mousedown', onDragStart)
 
+    el.removeAttribute('style')
     delete el[DRAG_DATA_KEY];
   },
 })

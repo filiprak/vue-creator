@@ -1,32 +1,26 @@
 <script>
 
   import VcDropComponent from './VcDropComponent';
+  import {INSERT_COMPONENT} from '../../store/mutations';
 
   function uniqueId() {
-    return '_' + Math.random().toString(36).substr(2, 15);
-  }
-
-  const COMPONENTS = {
-    root: {
-      children: []
-    },
+    return 'uid_' + Math.random().toString(36).substr(2, 18);
   }
 
   export default {
     name: 'VcTree',
     components: {VcDropComponent},
     render(h) {
-      const children = this.renderChildren(h, COMPONENTS.root.children)
+      const children = this.renderChildren(h, this.tree.root.children)
       const empty = children.length < 1
       const classes = ['vc-tree'];
 
       if (empty) {
         classes.push('vc-tree--empty')
-        children.push(h('span', {}, 'Drop components here...'))
       }
 
       return h('div', {
-        class: classes,
+        class: classes
       }, children)
     },
     computed: {
@@ -39,6 +33,9 @@
       highlighted() {
         return this.$store.state.highlight_component;
       },
+      tree() {
+        return this.$store.state.tree;
+      },
     },
     data() {
       return {}
@@ -47,7 +44,7 @@
       renderChildren(h, subtree) {
         if (subtree) {
           return subtree.map(id => {
-            const component = COMPONENTS[id]
+            const component = this.tree[id]
 
             if (typeof component === 'string') {
               return component;
@@ -61,12 +58,14 @@
                 {name: 'highlight', value: id}
               ]
 
+              data.key = id
+
               if (this.dragging && this.highlighted === id) {
-                children.push(h('VcDropComponent'))
+                children.push(h(this.draggedComponent.name, {}, this.draggedComponent.name))
               }
 
               if (children.length === 0) {
-                children.push('Empty content...')
+                children.push(component.name)
               }
 
               return h(component.name, data, children)
@@ -76,34 +75,18 @@
           return [];
         }
       },
-      insertComponent(component, parentId) {
-        const parent = COMPONENTS[parentId]
-
-        if (parent) {
-          const id = uniqueId()
-
-          COMPONENTS[id] = {
-            name: component.name,
-            children: []
-          }
-
-          parent.children = parent.children || []
-          parent.children.push(id)
-
-          this.$forceUpdate()
-        }
-
-        console.log(COMPONENTS)
-      }
     },
     watch: {
+      dragging(val) {
+        document.body.style.cursor = val ? 'grabbing' : null
+      },
       draggedComponent(_new, _old) {
         if (!_new) {
           if (this.highlighted !== null) {
-            this.insertComponent(_old, this.highlighted)
+            this.$store.commit(INSERT_COMPONENT, {id: uniqueId(), component: _old, parentId: this.highlighted})
 
           } else {
-            this.insertComponent(_old, 'root')
+            this.$store.commit(INSERT_COMPONENT, {id: uniqueId(), component: _old, parentId: 'root'})
           }
         }
       }
@@ -111,9 +94,15 @@
   }
 </script>
 
-<style scoped>
+<style>
+  body, html {
+    width: 100%;
+    height: 100%;
+  }
+
   .vc-tree {
     width: 100%;
     height: 100%;
+    padding: 15px;
   }
 </style>

@@ -1,7 +1,10 @@
 <template>
-  <iframe :srcdoc="document" class="vc-iframe">
+  <div class="vc-page-preview">
+    <span class="text--disabled">{{highlight_text}}</span>
+    <iframe :srcdoc="document" class="vc-iframe">
 
-  </iframe>
+    </iframe>
+  </div>
 </template>
 
 <script>
@@ -21,6 +24,10 @@
     computed: {
       document: function () {
         return this.getBaseHtml();
+      },
+      highlight_text: function () {
+        const component = this.$store.state.highlight_component_data
+        return component ? component.name : 'Hover on component'
       },
     },
     methods: {
@@ -93,9 +100,12 @@
 </script>
 
 <style scoped>
-  .vc-iframe {
+  .vc-page-preview {
     width: 100%;
     height: 100%;
-    border-radius: 4px;
+  }
+  .vc-iframe {
+    width: 100%;
+    height: calc(100% - 28px);
   }
 </style>
