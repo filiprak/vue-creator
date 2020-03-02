@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import store from '../store'
-import {REMOVE_COMPONENT, SET_HIGHLIGHT_COMPONENT} from '../../store/mutations';
+import {REMOVE_COMPONENT, SET_HIGHLIGHT_COMPONENT, SET_SELECTED_COMPONENT} from '../../store/mutations';
 
 
 const ORIGINAL_STYLE_DATA_KEY = 'vc-original-style'
@@ -51,6 +51,9 @@ function onMouseDown(event) {
   if (event.button === 1) {
     store.commit(REMOVE_COMPONENT, this[HIGHLIGHT_DATA_KEY])
     event.preventDefault()
+    event.stopPropagation()
+  } else {
+    store.commit(SET_SELECTED_COMPONENT, this[HIGHLIGHT_DATA_KEY])
     event.stopPropagation()
   }
 }

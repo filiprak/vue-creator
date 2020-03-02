@@ -4,24 +4,14 @@
   import {INSERT_COMPONENT} from '../../store/mutations';
 
   function uniqueId() {
-    return 'uid_' + Math.random().toString(36).substr(2, 18);
+    return 'vue-' + Math.random().toString(36).substr(2, 18);
   }
 
   export default {
     name: 'VcTree',
     components: {VcDropComponent},
     render(h) {
-      const children = this.renderChildren(h, this.tree.root.children)
-      const empty = children.length < 1
-      const classes = ['vc-tree'];
-
-      if (empty) {
-        classes.push('vc-tree--empty')
-      }
-
-      return h('div', {
-        class: classes
-      }, children)
+      return this.renderNode(h, 'root')
     },
     computed: {
       dragging() {
@@ -41,38 +31,39 @@
       return {}
     },
     methods: {
-      renderChildren(h, subtree) {
-        if (subtree) {
-          return subtree.map(id => {
-            const component = this.tree[id]
+      renderNode(h, id) {
+        const component = this.tree[id]
 
-            if (typeof component === 'string') {
-              return component;
+        if (typeof component === 'string') {
+          return component;
 
-            } else {
-              const children = this.renderChildren(h, component.children)
-
-              const data = component.vueData || {}
-
-              data.directives = [
-                {name: 'highlight', value: id}
-              ]
-
-              data.key = id
-
-              if (this.dragging && this.highlighted === id) {
-                children.push(h(this.draggedComponent.name, {}, this.draggedComponent.name))
-              }
-
-              if (children.length === 0) {
-                children.push(component.name)
-              }
-
-              return h(component.name, data, children)
-            }
-          })
         } else {
-          return [];
+          const children = component.children.map((child_id) => {
+            return this.renderNode(h, child_id)
+          })
+
+          const data = component.vueData || {}
+
+
+          data.key = id
+
+          if (this.dragging && this.highlighted === id) {
+            children.push(h(this.draggedComponent.name, {}, this.draggedComponent.name))
+          }
+
+          if (id === 'root') {
+            data.class = 'vc-tree'
+
+          } else {
+            data.directives = [
+              {name: 'highlight', value: id}
+            ]
+            if (children.length === 0) {
+              children.push(component.name)
+            }
+          }
+
+          return h(component.name, data, children)
         }
       },
     },

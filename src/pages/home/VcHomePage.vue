@@ -1,16 +1,22 @@
 <template>
-  <v-layout class="vc-page-view">
+  <v-layout class="vc-page-view" column>
     <VcPagePreview ref="preview"/>
+    <VcComponentProperties v-if="show_properties"/>
   </v-layout>
 </template>
 
 <script>
   import VcPagePreview from "./VcPagePreview";
+  import VcComponentProperties from '../../components/VcComponentProperties';
 
   export default {
     name: "VcHomePage",
-    components: {VcPagePreview},
-    computed: {}
+    components: {VcComponentProperties, VcPagePreview},
+    computed: {
+      show_properties() {
+        return this.$store.state.show_properties;
+      }
+    }
   }
 </script>
 

@@ -26,7 +26,7 @@
         return this.getBaseHtml();
       },
       highlight_text: function () {
-        const component = this.$store.state.highlight_component_data
+        const component = this.$store.getters.highlight_component_data
         return component ? component.name : 'Hover on component'
       },
     },

@@ -5,6 +5,7 @@
       right
       permanent
       fixed
+      width="356"
     >
       <vc-toolbar/>
     </v-navigation-drawer>
